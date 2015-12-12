@@ -29,7 +29,7 @@ client.set(key, val, lifetime);
 // client.set('foo', {x: 1, y: 2}, 10000);
 // returns a promise
 
-client.pit(values, lifetime);
+client.put(values, lifetime);
 // here values is an object of the form:
 // {key1: val1, key2: val2 ...and so on}
 // lifetime is optional
