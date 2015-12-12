@@ -1,3 +1,5 @@
+import {isArray} from 'lodash';
+
 export default class Hash {
   constructor(client, name) {
     this.client = client;
@@ -5,11 +7,25 @@ export default class Hash {
   }
 
   fullKey(key) {
-    return [this.name, key].join('.');
+    if (isArray(key)) {
+      return key.map((k) => this.fullKey(k));
+    }
+
+    return `${this.name}.${key}`;
   }
 
-  get(key) {
-    return this.client.get(this.fullKey(key));
+  assign(values, lifetime) {
+    return Promise.all(
+      Object.keys(values).map((key) => this.set(key, values[key], lifetime))
+    );
+  }
+
+  has(key) {
+    return this.client.exists(this.fullKey(key));
+  }
+
+  get(key, defaultVal=null) {
+    return this.client.get(this.fullKey(key), defaultVal);
   }
 
   set(key, val, lifetime) {
@@ -21,6 +37,6 @@ export default class Hash {
   }
 
   clear() {
-    return this.client.clear(this.name);
+    return this.client.clear(`${this.name}.`);
   }
 }

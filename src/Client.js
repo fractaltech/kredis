@@ -15,28 +15,61 @@ export default class Client {
     return this.ioredis.connect();
   }
 
-  quit() {
-    return this.ioredis.quit();
+  disconnect() {
+    return this.ioredis.disconnect();
   }
 
   set(key, val, lifetime) {
     if (isNumber(lifetime)) {
-      return this.ioredis.set(key, JSON.stringify(val));
-    } else {
       return this.ioredis.psetex(key, lifetime, JSON.stringify(val));
+    } else {
+      return this.ioredis.set(key, JSON.stringify(val));
     }
   }
 
-  get(key) {
-    return this.ioredis.get(key).then((val) => JSON.parse(val));
+  put(values, lifetime) {
+    return Promise.all(
+      Object.keys(values).map((key) => this.set(key, values[key], lifetime))
+    );
+  }
+
+  get(key, defaultVal=null) {
+    if (isArray(key)) {
+      return Promise.all(key.map((k) => this.get(k, defaultVal)));
+    }
+
+    return this.ioredis.get(key).then((val) => {
+      if (val === null) {
+        return defaultVal;
+      } else {
+        return JSON.parse(val);
+      }
+    });
+  }
+
+  exists(key) {
+    if (isArray(key)) {
+      return Promise.all(key.map((k) => this.exists(k)));
+    }
+
+    return this.ioredis.exists(key).then((result) => {
+      return result !== 0;
+    });
   }
 
   del(key) {
+    if (isArray(key)) {
+      return Promise.all(key.map((k) => this.del(k)));
+    }
+
     return this.ioredis.del(key);
   }
 
   clear(prefix) {
-    return this.ioredis.clear(isString(prefix) ? prefix : '');
+    const ioredisPrefix = this.ioredis.options.keyPrefix;
+    const pattern = isString(prefix) ? `${prefix}*` : `*`;
+
+    return this.ioredis.clear(`${ioredisPrefix}${pattern}`);
   }
 
   nq(queue, vals) {

@@ -1,12 +1,13 @@
 {
   "name": "kredis",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "A simple client for redis with most used functionalities",
-  "main": "lib/client.js",
+  "main": "lib/Client.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "babel -D src/ --out-dir lib/",
-    "watch": "babel -w -D src/ --out-dir lib/"
+    "test": "babel-node --stage 1 test/main.js",
+    "build": "npm run clean && babel --stage 1 -D src/ --out-dir lib/",
+    "watch": "npm run clean && babel --stage 1 -w -D src/ --out-dir lib/",
+    "clean": "rm -rf lib/"
   },
   "author": "Kapil <kapv89@gmail.com>",
   "license": "ISC",
@@ -15,8 +16,7 @@
     "lodash": "^3.10.1"
   },
   "devDependencies": {
-    "babel-core": "^6.2.1",
-    "babel-preset-es2015": "^6.1.18",
-    "babel-preset-stage-1": "^6.1.18"
+    "babel": "^5.8.34",
+    "tape": "^4.2.2"
   }
 }

@@ -1,4 +1,4 @@
-export function defaultCommands(ioredis) {
+export default function defaultCommands(ioredis) {
 
   ioredis.defineCommand('clear', {
     numberOfKeys: 0,
@@ -8,7 +8,7 @@ for i=1,#keys,5000 do
     redis.call("del", unpack(keys, i, math.min(i+4999, #keys)))
 end
 return keys
-    `
+`
   });
 
 }
