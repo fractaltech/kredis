@@ -1,7 +1,7 @@
 # kredis v 1.0.0
 #### We follow (breaking).(feature).(fix) versioning
 
-<h2>A wrapper over <a href="https://github.com/luin/ioredis" target="_blank">ioredis</a> with most used redis functionalities</h2>
+##A wrapper over [ioredis](https://github.com/luin/ioredis) with most used redis functionalities
 
 
 ### Usage:
