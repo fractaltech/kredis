@@ -1,6 +1,6 @@
 {
   "name": "kredis",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "repository": "https://github.com/fractaltech/kredis",
   "description": "A simple client for redis with most used functionalities",
   "main": "lib/Client.js",
