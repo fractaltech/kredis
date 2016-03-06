@@ -61,12 +61,16 @@ client.nq(queue, vals)
 // useful for simple communication b/w servers
 // returns a promise
 
+client.range(queue)
+// returns all the items in the queue
+
 client.dq(queue)
 // dequeue the queue named `queue`
 // returns a promise
 
 const tasksQueue = client.queue('tasks');
 tasksQueue.nq(task);
+tasksQueue.range();
 tasksQueue.dq();
 tasksQueue.clear();
 // simply a shorthand for working with a queue

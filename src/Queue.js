@@ -18,8 +18,8 @@ export default class Queue {
     }
   }
 
-  range() {
-    return this.client.range(this.name);
+  range(startI=0, endI=-1) {
+    return this.client.range(this.name, startI, endI);
   }
 
   clear() {

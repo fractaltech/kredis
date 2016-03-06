@@ -72,8 +72,8 @@ export default class Client {
     return this.ioredis.clear(`${ioredisPrefix}${pattern}`);
   }
 
-  range(queue) {
-    return this.ioredis.lrange(queue, 0, -1)
+  range(queue, startI=0, endI=-1) {
+    return this.ioredis.lrange(queue, startI, endI)
       .then((items) => items.map((item) => JSON.parse(item)));
   }
 
