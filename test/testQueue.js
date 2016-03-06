@@ -6,6 +6,10 @@ export default async function run(assert, client) {
   await q.nq({x: 1}, {x: 2});
   await q.nq([{x: 3}, {x: 4}]);
 
+  const items = await q.range();
+
+  items.forEach(({x}) => assert.ok([1,2,3,4].indexOf(x) > -1));
+
   assert.deepEqual((await q.dq()).x, 1);
   assert.deepEqual((await q.dq()).x, 2);
   assert.deepEqual((await q.dq()).x, 3);

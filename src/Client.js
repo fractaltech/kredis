@@ -72,6 +72,11 @@ export default class Client {
     return this.ioredis.clear(`${ioredisPrefix}${pattern}`);
   }
 
+  range(queue) {
+    return this.ioredis.lrange(queue, 0, -1)
+      .then((items) => items.map((item) => JSON.parse(item)));
+  }
+
   nq(queue, vals) {
     if (isArray(vals)) {
       vals = vals.map((v) => JSON.stringify(v));

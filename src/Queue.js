@@ -18,6 +18,10 @@ export default class Queue {
     }
   }
 
+  range() {
+    return this.client.range(this.name);
+  }
+
   clear() {
     return this.client.clear(this.name);
   }
