@@ -1,4 +1,4 @@
-# kredis v 1.0.0
+# kredis v 1.0.2
 #### We follow (breaking).(feature).(fix) versioning
 
 ##A wrapper over [ioredis](https://github.com/luin/ioredis) with most used redis functionalities
