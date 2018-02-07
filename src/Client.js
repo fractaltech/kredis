@@ -65,6 +65,10 @@ export default class Client {
     return this.ioredis.del(key);
   }
 
+  delete(key) {
+    return this.delete(key);
+  }
+
   clear(prefix) {
     const ioredisPrefix = this.ioredis.options.keyPrefix;
     const pattern = isString(prefix) ? `${prefix}*` : `*`;

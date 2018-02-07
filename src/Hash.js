@@ -36,6 +36,10 @@ export default class Hash {
     return this.client.del(this.fullKey(key));
   }
 
+  delete(key) {
+    return this.delete(key);
+  }
+
   clear() {
     return this.client.clear(`${this.name}.`);
   }
