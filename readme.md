@@ -82,3 +82,7 @@ usersHash.clear();
 // simply a shorthand for working with a namespaced key-value store
 
 ```
+
+### Testing
+1. Copy `test/config.sample.js` to `test/config.js`. Make changes as needed
+2. Run `npm run test`

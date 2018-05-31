@@ -13,8 +13,8 @@ process.on('unhandledRejection', err => { throw err; });
 
 run(...process.argv.slice(2));
 
-async function run(password) {
-  const client = new Client({...config.redis, password});
+async function run() {
+  const client = new Client(config.redis);
 
   await client.clear();
 
