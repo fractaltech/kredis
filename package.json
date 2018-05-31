@@ -13,11 +13,10 @@
   "author": "Kapil <kapv89@gmail.com>",
   "license": "ISC",
   "dependencies": {
-    "ioredis": "^1.11.0",
-    "lodash": "^3.10.1"
+    "ioredis": "^3.2.2",
+    "lodash": "^4.17.10"
   },
   "devDependencies": {
-    "babel": "^5.8.34",
-    "tape": "^4.2.2"
+    "babel": "^5.8.34"
   }
 }
