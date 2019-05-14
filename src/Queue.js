@@ -1,6 +1,6 @@
-import {isArray} from 'lodash';
+const {isArray} = require('lodash');
 
-export default class Queue {
+class Queue {
   constructor(client, name) {
     this.client = client;
     this.name = name;
@@ -26,3 +26,5 @@ export default class Queue {
     return this.client.clear(this.name);
   }
 }
+
+module.exports = Queue;

@@ -1,6 +1,6 @@
-import {isArray} from 'lodash';
+const {isArray} = require('lodash');
 
-export default class Hash {
+class Hash {
   constructor(client, name) {
     this.client = client;
     this.name = name;
@@ -44,3 +44,5 @@ export default class Hash {
     return this.client.clear(`${this.name}.`);
   }
 }
+
+module.exports = Hash;

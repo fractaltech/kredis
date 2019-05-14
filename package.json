@@ -5,7 +5,7 @@
   "description": "A simple client for redis with most used functionalities",
   "main": "lib/Client.js",
   "scripts": {
-    "test": "babel-node --stage 1 test/main.js",
+    "test": "node test/main.js",
     "build": "npm run clean && babel --stage 1 -D src/ --out-dir lib/",
     "watch": "npm run clean && babel --stage 1 -w -D src/ --out-dir lib/",
     "clean": "rm -rf lib/"
@@ -14,7 +14,8 @@
   "license": "ISC",
   "dependencies": {
     "ioredis": "^3.2.2",
-    "lodash": "^4.17.10"
+    "lodash": "^4.17.10",
+    "redisdsl": "^1.0.1"
   },
   "devDependencies": {
     "babel": "^5.8.34"

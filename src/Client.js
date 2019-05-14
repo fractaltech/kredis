@@ -1,35 +1,31 @@
-import IORedis from 'ioredis';
-import {isString, isNumber, isArray} from 'lodash';
+const IORedis = require('ioredis');
+const {isString, isNumber, isArray} = require('lodash');
 
-import defaultCommands from './commands';
-import Queue from './Queue';
-import Hash from './Hash';
+const Connection = require('./Connection');
+const defaultCommands = require('./commands');
+const Queue = require('./Queue');
+const Hash = require('./Hash');
 
-export default class Client {
+class Client {
   constructor(config) {
-    this.ioredis = config instanceof IORedis ? config : new IORedis(config);
-    defaultCommands(this.ioredis);
-  }
-
-  connect() {
-    return this.ioredis.connect();
+    this.connection = new Connection(config);
   }
 
   disconnect() {
-    return this.ioredis.disconnect();
+    return this.connection.quit();
   }
 
   set(key, val, lifetime) {
     if (isNumber(lifetime)) {
-      return this.ioredis.psetex(key, lifetime, JSON.stringify(val));
+      return this.connection.cmds.psetex(key, lifetime, JSON.stringify(val));
     } else {
-      return this.ioredis.set(key, JSON.stringify(val));
+      return this.connection.cmds.set(key, JSON.stringify(val));
     }
   }
 
   put(values, lifetime) {
     return Promise.all(
-      Object.keys(values).map((key) => this.set(key, values[key], lifetime))
+      Object.keys(values).map((key) => this.connection.cmds.set(key, values[key], lifetime))
     );
   }
 
@@ -38,7 +34,7 @@ export default class Client {
       return Promise.all(key.map((k) => this.get(k, defaultVal)));
     }
 
-    return this.ioredis.get(key).then((val) => {
+    return this.connection.cmds.get(key).then((val) => {
       if (val === null) {
         return defaultVal;
       } else {
@@ -52,8 +48,8 @@ export default class Client {
       return Promise.all(key.map((k) => this.exists(k)));
     }
 
-    return this.ioredis.exists(key).then((result) => {
-      return result !== 0;
+    return this.connection.cmds.exists(key).then((result) => {
+      return Number(result) !== 0;
     });
   }
 
@@ -62,16 +58,18 @@ export default class Client {
       return Promise.all(key.map((k) => this.del(k)));
     }
 
-    return this.ioredis.del(key);
+    return this.connection.cmds.del(key);
   }
 
   delete(key) {
-    return this.delete(key);
+    return this.del(key);
   }
 
   clear(prefix) {
     const ioredisPrefix = this.ioredis.options.keyPrefix;
     const pattern = isString(prefix) ? `${prefix}*` : `*`;
+
+    
 
     return this.ioredis.clear(`${ioredisPrefix}${pattern}`);
   }
@@ -105,3 +103,5 @@ export default class Client {
     return new Hash(this, name);
   }
 }
+
+module.exports = Client;

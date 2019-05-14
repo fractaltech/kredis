@@ -1,4 +1,4 @@
-export default function defaultCommands(ioredis) {
+function defaultCommands(ioredis) {
 
   ioredis.defineCommand('clear', {
     numberOfKeys: 0,
@@ -12,3 +12,5 @@ return keys
   });
 
 }
+
+module.exports = defaultCommands;

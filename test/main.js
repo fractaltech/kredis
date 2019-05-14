@@ -1,12 +1,11 @@
-import assert from 'assert';
+const assert = require('assert');
+const Client = require('../src/Client');
 
-import Client from '../src/Client';
+const config = require('./config');
 
-import config from './config';
-
-import testClient from './testClient';
-import testHash from './testHash';
-import testQueue from './testQueue';
+const testClient = require('./testClient');
+const testHash = require('./testHash');
+const testQueue = require('./testQueue');
 
 // handle promise errors
 process.on('unhandledRejection', err => { throw err; });

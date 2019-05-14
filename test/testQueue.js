@@ -1,4 +1,4 @@
-export default async function run(assert, client) {
+async function run(assert, client) {
   console.log('testing queue');
 
   const q = client.queue('q');
@@ -16,3 +16,5 @@ export default async function run(assert, client) {
   assert.deepEqual((await q.dq()).x, 4);
   assert.deepEqual(await q.dq(), null);
 }
+
+module.exports = run;

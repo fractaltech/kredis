@@ -1,4 +1,4 @@
-export default async function run(assert, client) {
+async function run(assert, client) {
   console.log('testing client');
 
   await (async () => {
@@ -105,3 +105,5 @@ export default async function run(assert, client) {
     assert.deepEqual(o4, null);
   })();
 }
+
+module.exports = run;

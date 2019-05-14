@@ -1,4 +1,4 @@
-export default async function run(assert, client) {
+async function run(assert, client) {
   console.log('testing hash');
 
   const testHash = client.hash('test');
@@ -20,3 +20,5 @@ export default async function run(assert, client) {
     resolve();
   }, 1000));
 }
+
+module.exports = run;
